@@ -1,4 +1,5 @@
 ﻿
+
 using Prosoft.devRegister.Business.Model;
 
 namespace Prosoft.devRegister.Business.Interfaces

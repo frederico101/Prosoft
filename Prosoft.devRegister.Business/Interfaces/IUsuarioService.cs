@@ -5,6 +5,6 @@ namespace Prosoft.devRegister.Business.Interfaces
 {
     public interface IUsuarioService: IDisposable
     {
-        List<Usuario> Listar();
+        Task<List<Usuario>> Listar();
     }
 }

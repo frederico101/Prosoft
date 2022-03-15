@@ -1,35 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Prosoft.devRegister.Business.Interfaces;
 using Prosoft.devRegister.Business.Model;
 using Prosoft.devRegister.Data.Context;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Prosoft.devRegister.Data.Repository
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
+    public class UsuarioRepository : IUsuarioRepository //Repository<Usuario>,
     {
-        protected readonly AppDbContext Db;
-        protected readonly DbSet<TEntity> DbSet;
-
-        public Repository(AppDbContext db)
-        {
-            Db = db;
-            DbSet = db.Set<TEntity>();
-        }
-
         static readonly HttpClient client = new HttpClient();
-        public async Task<List<TEntity>> ObterTodos()
+        public async Task<List<Usuario>> ObterTodos()
         {
-
             HttpResponseMessage response = await client.GetAsync("https://61a170e06c3b400017e69d00.mockapi.io/DevTest/Dev");
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var result = JsonConvert.DeserializeObject<List<TEntity>>(responseBody);
+            var result = JsonConvert.DeserializeObject<List<Usuario>>(responseBody);
             return result;
-
         }
-
         public void Dispose()
         {
             throw new NotImplementedException();
