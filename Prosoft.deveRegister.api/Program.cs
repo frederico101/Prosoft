@@ -1,12 +1,15 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
+using Microsoft.EntityFrameworkCore;
+using Prosoft.devRegister.Business;
+using Prosoft.devRegister.Business.Interfaces;
+using Prosoft.devRegister.Data.Context;
+using Prosoft.devRegister.Data.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<AppDbContext>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository> ();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -15,7 +18,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HttP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
