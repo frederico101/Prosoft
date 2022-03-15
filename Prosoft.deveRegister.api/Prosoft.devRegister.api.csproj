@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-Prosoft.deveRegister.api-B3C25CA0-A8AA-49E0-8167-0EEEAF267B40</UserSecretsId>
+    <UserSecretsId>aspnet-Prosoft.devRegister.api-B3C25CA0-A8AA-49E0-8167-0EEEAF267B40</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
@@ -14,6 +14,10 @@
     <PackageReference Include="Microsoft.Identity.Web" Version="1.16.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Prosoft.devRegister.Business\Prosoft.devRegister.Business.csproj" />
   </ItemGroup>
 
 </Project>

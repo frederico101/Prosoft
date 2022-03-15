@@ -10,16 +10,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Prosoft.deveRegister.api/Prosoft.deveRegister.api.csproj", "Prosoft.deveRegister.api/"]
-RUN dotnet restore "Prosoft.deveRegister.api/Prosoft.deveRegister.api.csproj"
+COPY ["Prosoft.devRegister.api/Prosoft.devRegister.api.csproj", "Prosoft.devRegister.api/"]
+RUN dotnet restore "Prosoft.devRegister.api/Prosoft.devRegister.api.csproj"
 COPY . .
-WORKDIR "/src/Prosoft.deveRegister.api"
-RUN dotnet build "Prosoft.deveRegister.api.csproj" -c Release -o /app/build
+WORKDIR "/src/Prosoft.devRegister.api"
+RUN dotnet build "Prosoft.devRegister.api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Prosoft.deveRegister.api.csproj" -c Release -o /app/publish
+RUN dotnet publish "Prosoft.devRegister.api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Prosoft.deveRegister.api.dll"]
+ENTRYPOINT ["dotnet", "Prosoft.devRegister.api.dll"]

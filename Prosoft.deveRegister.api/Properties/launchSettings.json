@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Prosoft.deveRegister.api": {
+    "Prosoft.devRegister.api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
