@@ -16,6 +16,13 @@ namespace Prosoft.devRegister.Business
             return await _usuarioRepository.ObterTodos();
         }
 
+        public async Task<Usuario> ObterUsuarioPorId(string usuarioId)
+        {
+            if (usuarioId == null) return null;
+
+            return await _usuarioRepository.ObterUsuarioPorIdRepository(usuarioId);
+        }
+
         public void Dispose()
         {
             _usuarioRepository?.Dispose();

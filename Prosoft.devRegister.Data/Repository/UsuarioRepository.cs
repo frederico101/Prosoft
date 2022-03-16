@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Prosoft.devRegister.Data.Repository
 {
-    public class UsuarioRepository : IUsuarioRepository //Repository<Usuario>,
+    public class UsuarioRepository : IUsuarioRepository //,Repository<Usuario>
     {
         static readonly HttpClient client = new HttpClient();
         public async Task<List<Usuario>> ObterTodos()
@@ -22,10 +22,22 @@ namespace Prosoft.devRegister.Data.Repository
             var result = JsonConvert.DeserializeObject<List<Usuario>>(responseBody);
             return result;
         }
+      
+        public async Task<Usuario> ObterUsuarioPorIdRepository(string usuarioId)
+        {
+            string baseUrl = $"https://61a170e06c3b400017e69d00.mockapi.io/DevTest/Dev/{usuarioId}";
+            HttpResponseMessage response = await client.GetAsync(baseUrl);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var result = JsonConvert.DeserializeObject<Usuario>(responseBody);
+            return result;
+
+        }
+
         public void Dispose()
         {
             throw new NotImplementedException();
         }
-
     }
 }

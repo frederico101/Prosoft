@@ -20,14 +20,12 @@ namespace Prosoft.devRegister.Data.Repository
         static readonly HttpClient client = new HttpClient();
         public async Task<List<TEntity>> ObterTodos()
         {
+            throw new NotImplementedException();
+        }
 
-            HttpResponseMessage response = await client.GetAsync("https://61a170e06c3b400017e69d00.mockapi.io/DevTest/Dev");
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var result = JsonConvert.DeserializeObject<List<TEntity>>(responseBody);
-            return result;
-
+        public Task<TEntity> ObterUsuarioPorIdRepository(string usuarioId)
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()
@@ -35,5 +33,6 @@ namespace Prosoft.devRegister.Data.Repository
             throw new NotImplementedException();
         }
 
+       
     }
 }
