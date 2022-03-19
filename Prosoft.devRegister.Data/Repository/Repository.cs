@@ -33,6 +33,14 @@ namespace Prosoft.devRegister.Data.Repository
             throw new NotImplementedException();
         }
 
-       
+        public async Task<TEntity> AtualizarUsuarioPorIdRepository(Usuario usuario)
+        {
+              return null;
+        }
+
+        public Task<TEntity> InserirUsuarioRepository(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
