@@ -108,8 +108,8 @@ namespace Prosoft.devRegister.api.Controllers
                 var results = await _usuarioRepository.ObterTodos();
 
                 var emails = EmailValidation.AtualizaEmail(results);
-                if (emails != null) {
-                    foreach (var emailCorrigido in emails) { 
+                if (emails.Count <= 0) return NotFound(new { success = true, data = "Todos os dominios de emails estão atualizados" });
+                foreach (var emailCorrigido in emails) { 
 
                    var worngEmail = await _usuarioservice.ObterUsuarioPorIdServices(emailCorrigido.Id);
                         if(worngEmail.Id == emailCorrigido.Id)
@@ -119,7 +119,7 @@ namespace Prosoft.devRegister.api.Controllers
                             result = await _usuarioservice.AtualizarUsuarioPorIdServices(worngEmail, emailCorrigido);
                         }
                     }
-                }
+                
                 if (result == null) return BadRequest(new { success = false, data = "" });
 
                 return Ok(new { success = true, data = result });
