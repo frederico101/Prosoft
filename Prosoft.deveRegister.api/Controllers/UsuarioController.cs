@@ -35,7 +35,7 @@ namespace Prosoft.devRegister.api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro ao listar os usuarios => {ex}");
+                _logger.LogError($"Erro ao inserir usuarios => {ex}");
             }
             return NotFound(new { success = false, data = "" });
         }
@@ -48,7 +48,7 @@ namespace Prosoft.devRegister.api.Controllers
             {
                 var result = await _usuarioRepository.ObterTodos();
                 
-                if (result == null) return BadRequest(new { success = false, data = "" });
+                if (result.Count <= 0) return BadRequest(new { success = false, data = "" });
                 return Ok(new { success = true, data = result});
             }
             catch (Exception ex) {
@@ -83,15 +83,15 @@ namespace Prosoft.devRegister.api.Controllers
 
             var resultUsuario = await _usuarioservice.ObterUsuarioPorIdServices(novosDadosUsuario.Id);
           
-            var result = _usuarioservice.AtualizarUsuarioPorIdServices(resultUsuario, novosDadosUsuario);
+            var result = await _usuarioservice.AtualizarUsuarioPorIdServices(resultUsuario, novosDadosUsuario);
 
-            if (result == null) return BadRequest(new { success = false, data = "" });
+            if (string.IsNullOrEmpty(result.Id)) return BadRequest(new { success = false, data = "" });
 
             return Ok(new { success = true, data = result });
         }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro ao listar os usuarios pelo id => {ex}");
+                _logger.LogError($"Erro ao atualizar usuario => {ex}");
             }
             return NotFound(new { success = false, data = "" });
          }
@@ -126,7 +126,7 @@ namespace Prosoft.devRegister.api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro ao atualizar o dominio de email");
+                _logger.LogError($"Erro ao atualizar o dominio de email => {ex}");
             }
             return NotFound(new { success = false, data = "" });
         }
