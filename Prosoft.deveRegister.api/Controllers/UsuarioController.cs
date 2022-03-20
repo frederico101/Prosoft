@@ -42,7 +42,7 @@ namespace Prosoft.devRegister.api.Controllers
 
 
         [HttpGet("listarUsuarios")]
-        public async Task<IEnumerable<Usuario>> ListarUsuarios()
+        public async Task<ActionResult<IEnumerable<Usuario>>> ListarUsuarios()
         {
             try
             {
