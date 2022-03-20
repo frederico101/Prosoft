@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Prosoft.devRegister.Business.Interfaces;
 using Prosoft.devRegister.Business.Model;
 using Prosoft.devRegister.Business.Validacoes;
-using System.Text.RegularExpressions;
 using System.Web.Http.Description;
 
 namespace Prosoft.devRegister.api.Controllers
@@ -32,7 +31,6 @@ namespace Prosoft.devRegister.api.Controllers
                 var result = await _usuarioRepository.InserirUsuarioRepository(usuario);
 
                 if (string.IsNullOrEmpty(result.Id)) return BadRequest(new { success = false, data = "" });
-
                 return Ok(new { success = true, data = result });
             }
             catch (Exception ex)
@@ -46,7 +44,18 @@ namespace Prosoft.devRegister.api.Controllers
         [HttpGet("listarUsuarios")]
         public async Task<IEnumerable<Usuario>> ListarUsuarios()
         {
-            return await _usuarioRepository.ObterTodos();
+            try
+            {
+                var result = await _usuarioRepository.ObterTodos();
+                
+                if (result == null) return BadRequest(new { success = false, data = "" });
+                return Ok(new { success = true, data = result});
+            }
+            catch (Exception ex) {
+                _logger.LogError($"Erro ao listar os usuarios => {ex}");
+            }
+            return NotFound(new { success = false, data = ""});
+        }
 
         [HttpGet("obterUsuarioPorId")]
         public async Task<ActionResult<Usuario>> ObterUsuarioPorId(string usuarioId)
@@ -56,7 +65,6 @@ namespace Prosoft.devRegister.api.Controllers
                 var result = await _usuarioservice.ObterUsuarioPorIdServices(usuarioId);
 
                 if (result == null) return BadRequest(new { success = false, data = "" });
-
                 return Ok(new { success = true, data = result });
             }
             catch (Exception ex)
@@ -118,7 +126,7 @@ namespace Prosoft.devRegister.api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro ao listar os usuarios pelo id => {ex}");
+                _logger.LogError($"Erro ao atualizar o dominio de email");
             }
             return NotFound(new { success = false, data = "" });
         }
