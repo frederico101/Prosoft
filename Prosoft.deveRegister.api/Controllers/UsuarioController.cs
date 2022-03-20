@@ -28,7 +28,7 @@ namespace Prosoft.devRegister.api.Controllers
             try
               {
                 
-                if (!EmailValidation.ValidaEmail(usuario.Email)) return Ok(new { success = false, data = "Dominio de email inválido, apenas usuários com domino de email @prosoft.com.br são permitidos" });
+                if (!EmailValidation.ValidaEmail(usuario.Email)) return BadRequest(new { success = false, data = "Dominio de email inválido, apenas usuários com domino de email @prosoft.com.br são permitidos" });
                 
                 var result = await _usuarioRepository.InserirUsuarioRepository(usuario);
 
@@ -38,7 +38,7 @@ namespace Prosoft.devRegister.api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro ao listar os usuarios => {ex}");
+                _logger.LogError($"Erro ao inserir novo usuario => {ex}");
             }
             return NotFound(new { success = false, data = "" });
         }
@@ -74,7 +74,7 @@ namespace Prosoft.devRegister.api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro ao listar os usuarios pelo id => {ex}");
+                _logger.LogError($"Erro ao obter os usuarios pelo id => {ex}");
             }
             return NotFound(new { success = false, data = "" });
         }
@@ -96,7 +96,7 @@ namespace Prosoft.devRegister.api.Controllers
         }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro ao listar os usuarios pelo id => {ex}");
+                _logger.LogError($"Erro ao atualizar usuario => {ex}");
             }
             return NotFound(new { success = false, data = "" });
          }
@@ -131,7 +131,7 @@ namespace Prosoft.devRegister.api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro ao listar os usuarios pelo id => {ex}");
+                _logger.LogError($"Erro atualizar o dominio de email => {ex}");
             }
             return NotFound(new { success = false, data = "" });
         }
